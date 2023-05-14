@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -109,11 +110,32 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   /**
-   * Get the position of a select module including distance and angle
-   * @param swerveModule Which module to get the position of
-   * @return The position of the module
+   * Get the state of all the modules including velocity and angle of each
+   * @return The state of all the modules as an array
    */
-  public SwerveModulePosition getPosition(int swerveModule) {
-    return swerveModules[swerveModule].getPosition();
+  public SwerveModuleState[] getStates() {
+    return new SwerveModuleState[] {
+      swerveModules[0].getState(), swerveModules[1].getState(), swerveModules[2].getState(), swerveModules[3].getState()
+    };
+  }
+
+  /**
+   * @return the current speed of the robot in whatever direction it is traveling
+   */
+  public double getCurrentChassisSpeeds() {
+    ChassisSpeeds currentSpeeds = SwerveConstants.KINEMATICS.toChassisSpeeds(this.getStates());
+    double linearVelocity = Math.sqrt((currentSpeeds.vxMetersPerSecond * currentSpeeds.vxMetersPerSecond) + (currentSpeeds.vyMetersPerSecond * currentSpeeds.vyMetersPerSecond));
+    return linearVelocity;
+  }
+
+  /**
+   * @param currentPose of the robot from the pose estimator
+   * @return the current direction the robot is traveling in
+   */
+  public Rotation2d getCurrentChassisHeading(Pose2d currentPose) {
+    ChassisSpeeds currentSpeeds = SwerveConstants.KINEMATICS.toChassisSpeeds(this.getStates());
+    Rotation2d robotHeading = new Rotation2d(Math.atan2(currentSpeeds.vyMetersPerSecond, currentSpeeds.vxMetersPerSecond));
+    Rotation2d currentHeading = robotHeading.plus(currentPose.getRotation());
+    return currentHeading;
   }
 }

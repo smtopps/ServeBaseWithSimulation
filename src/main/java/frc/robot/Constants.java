@@ -12,6 +12,20 @@ import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class Constants {
+
+    public static final int DRIVETRAIN_PIGEON_ID = 2; // Pigeon ID
+    public static final int CANDLE_ID = 3;
+    public static final String DRIVETRAIN_CANBUS = "canivore";
+
+    public static final double DRIVE_SPEED = 0.8; //0.7 in north bay
+    public static final double BOOST_SPEED = 1.0;
+    public static final double PERCISION_SPEED = 0.25;
+
+    public static class OperatorConstants {
+        public static final int kDriverControllerPort = 0;
+        public static final int kOperatorControllerPort = 1;
+    }
+
     public static final class ModuleConstants {
 
         // Swerve Current Limiting

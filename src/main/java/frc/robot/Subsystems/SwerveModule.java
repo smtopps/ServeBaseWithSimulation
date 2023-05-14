@@ -47,15 +47,15 @@ public class SwerveModule {
         angleOffset = moduleConstants.angleOffset;
 
         /* Angle Encoder Configuration */
-        angleEncoder = new CANCoder(moduleConstants.cancoderID, "canivore");
+        angleEncoder = new CANCoder(moduleConstants.cancoderID, Constants.DRIVETRAIN_CANBUS);
         configAngleEncoder();
 
         /* Angle Motor Configuration */
-        angleMotor = new TalonFX(moduleConstants.angleMotorID, "canivore");
+        angleMotor = new TalonFX(moduleConstants.angleMotorID, Constants.DRIVETRAIN_CANBUS);
         configAngleMotor();
 
         /* Drive Motor Configuration */
-        driveMotor = new TalonFX(moduleConstants.driveMotorID, "canivore");
+        driveMotor = new TalonFX(moduleConstants.driveMotorID, Constants.DRIVETRAIN_CANBUS);
         configDriveMotor();
 
         lastAngle = getPosition().angle.getDegrees();
@@ -175,7 +175,6 @@ public class SwerveModule {
 
     /**
      * SwerveModuleState is an object which contains the modules velocity and modules angle
-     * @deprecated Was used for old pose estimator
      * @return The current state of the module
      */
     public SwerveModuleState getState() {
