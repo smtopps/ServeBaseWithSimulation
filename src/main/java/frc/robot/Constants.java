@@ -13,6 +13,9 @@ import edu.wpi.first.math.util.Units;
 /** Add your docs here. */
 public class Constants {
 
+    public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
+
     public static final int DRIVETRAIN_PIGEON_ID = 2; // Pigeon ID
     public static final int CANDLE_ID = 3;
     public static final String DRIVETRAIN_CANBUS = "canivore";
